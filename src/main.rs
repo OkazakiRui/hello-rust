@@ -42,4 +42,7 @@ fn main() {
         println!("{}", y);
     }
     println!("{}", y);
+
+    // タプル型
+    let t1 = (500, 4.6, "hoge");
 }
