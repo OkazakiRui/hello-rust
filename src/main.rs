@@ -45,4 +45,33 @@ fn main() {
 
     // タプル型
     let t1 = (500, 4.6, "hoge");
+    let (x, y, z) = t1;
+    println!("{}, {}, {}", x, y, z);
+    println!("{}, {}, {}", t1.0, t1.1, t1.2);
+
+    let mut t2 = ((0, 1), (2, 3));
+    println!("{:?}", t2);
+    let ((ref mut x1_ptr, ref mut y1_ptr), _) = t2;
+    *x1_ptr = 10;
+    *y1_ptr = -10;
+    println!("{:?}", t2);
+
+    let a1 = [1, 2, 3, 4, 5];
+    let a2 = [0; 10];
+    println!("{:?} {:?} {} {}", a1, a2, a1[2], a1[3]);
+
+    let s1 = "helloこんにちは挨拶"; // 26bytes
+    let s2 = "hello"; // 5bytes
+
+    // 16bytes分のメモリが確保されている。
+    // s1は26bytesなのになぜ？
+    println!("{:p}", &s1); // 0x7ffee2813cc8
+    println!("{:p}", &s2); // 0x7ffee2813cd8
+
+    // 文字列スライス型の前8bytesに格納されている、メモリ番地を取得する
+    println!("{:?}", s1.as_ptr()); // 0x1028838b4
+    println!("{:?}", s2.as_ptr()); // 0x1028838ce
+                                   // 0x1028838b4 - 0x1028838ce = 0x1A
+                                   // 0x1A = 16 + 10 = 26
+                                   //    26bytes分ずれている
 }
