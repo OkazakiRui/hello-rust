@@ -65,6 +65,8 @@ fn main() {
 
     // 16bytes分のメモリが確保されている。
     // s1は26bytesなのになぜ？
+    // 1~8: アドレス
+    // 9~16: 長さ
     println!("{:p}", &s1); // 0x7ffee2813cc8
     println!("{:p}", &s2); // 0x7ffee2813cd8
 
@@ -73,5 +75,32 @@ fn main() {
     println!("{:?}", s2.as_ptr()); // 0x1028838ce
                                    // 0x1028838b4 - 0x1028838ce = 0x1A
                                    // 0x1A = 16 + 10 = 26
-                                   //    26bytes分ずれている
+                                   // 26bytes分ずれている
+    println!("{:?}", s1.len()); // 26bytes
+    println!("{:?}", s2.len()); // 5bytes
+
+    // string型を作成していく
+    let mut s1 = String::from("hello");
+    let mut s2 = String::from("helloworld");
+    println!("{:p}", &s1); // 0x7ffeea9ceca8
+    println!("{:p}", &s2); // 0x7ffeea9cecc0
+                           // 24bytesのメモリが確保されている
+                           // 1~8: アドレス
+                           // 9~16: 長さ
+                           // 17~24: キャパシティ
+
+    // アドレス
+    println!("{:?}", s1.as_ptr());
+    println!("{:?}", s2.as_ptr());
+    // 長さ
+    println!("{}", s1.len());
+    println!("{}", s2.len());
+    // キャパシティ
+    println!("{}", s1.capacity());
+    println!("{}", s2.capacity());
+    s1.push_str("hoge");
+    s2.push_str("fugafugapiyopiyo");
+    println!("{}", s1.capacity());
+    println!("{}", s2.capacity());
+    println!("{} {}", s1, s2);
 }
